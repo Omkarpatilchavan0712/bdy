@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Priya ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{font-family:Poppins}
+body{
+    margin:0;
+    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    color:white;
+    overflow-x:hidden;
+}
+section{
+    min-height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px;
+    animation:fade 1s;
+}
+section.active{display:flex}
+@keyframes fade{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.card{
+    background:rgba(255,255,255,0.12);
+    padding:40px;
+    border-radius:25px;
+    max-width:750px;
+    width:100%;
+}
+.btn-love{
+    background:#ff4d6d;
+    border:none;
+    color:white;
+    padding:12px 30px;
+    font-size:18px;
+    border-radius:30px;
+}
+.btn-love:hover{background:#ff1f4a}
+
+/* Floating hearts */
+.hearts{position:fixed;inset:0;pointer-events:none}
+.heart{
+    position:absolute;
+    font-size:20px;
+    color:#ff4d6d;
+    animation:float 6s linear infinite;
+}
+@keyframes float{
+    from{transform:translateY(100vh)}
+    to{transform:translateY(-10vh)}
+}
+
+/* Cake */
+.cake{
+    width:200px;
+    height:140px;
+    background:#ff9aa2;
+    border-radius:15px;
+    margin:20px auto;
+    position:relative;
+}
+.candle{
+    width:10px;
+    height:40px;
+    background:white;
+    position:absolute;
+    top:-40px;
+    left:95px;
+}
+.flame{
+    width:15px;
+    height:15px;
+    background:orange;
+    border-radius:50%;
+    position:absolute;
+    top:-15px;
+    left:-3px;
+    animation:flicker .4s infinite alternate;
+}
+@keyframes flicker{
+    from{transform:scale(1)}
+    to{transform:scale(1.3)}
+}
+
+#letter{
+    white-space:pre-line;
+    font-size:20px;
+    line-height:1.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<!-- PAGE 1 -->
+<section class="active">
+<div class="card">
+<h1>🎂 Happy Birthday Priya ❤️</h1>
+<p>You are my everything 🌸</p>
+<button class="btn-love" onclick="next()">Start Journey 💖</button>
+</div>
+</section>
+
+<!-- PAGE 2 -->
+<section>
+<div class="card">
+<h1>👑 About Priya</h1>
+<p>Beautiful, kind, caring, and my greatest blessing ❤️</p>
+<button class="btn-love" onclick="next()">Next 💕</button>
+</div>
+</section>
+
+<!-- PAGE 3 -->
+<section>
+<div class="card">
+<h1>📖 Our Story</h1>
+<p>From strangers → friends → soulmates 💞</p>
+<button class="btn-love" onclick="next()">Next 💕</button>
+</div>
+</section>
+
+<!-- PAGE 4 -->
+<section>
+<div class="card">
+<h1>💖 Why I Love You</h1>
+<ul class="list-unstyled fs-5">
+<li>🌸 Your smile</li>
+<li>🌸 Your care</li>
+<li>🌸 Your honesty</li>
+<li>🌸 Your love</li>
+</ul>
+<button class="btn-love" onclick="next()">Next 💕</button>
+</div>
+</section>
+
+<!-- PAGE 5 -->
+<section>
+<div class="card">
+<h1>🎂 Birthday Cake</h1>
+<p>Age: <span id="age"></span> years 🎉</p>
+<div class="cake">
+<div class="candle"><div class="flame"></div></div>
+</div>
+<button class="btn-love" onclick="next()">Next 💕</button>
+</div>
+</section>
+
+<!-- PAGE 6 -->
+<section>
+<div class="card">
+<h1>⏳ Countdown</h1>
+<h2 id="countdown"></h2>
+<p>At 12:00 AM… fireworks will light the sky 🎆</p>
+<button class="btn-love" onclick="next()">Next 💕</button>
+</div>
+</section>
+
+<!-- PAGE 7 -->
+<section>
+<div class="card">
+<h1>💍 Priya, Will You Be Mine Forever?</h1>
+<button class="btn-love me-3" onclick="yes()">YES ❤️</button>
+<button class="btn btn-secondary" onclick="no()">No 😢</button>
+</div>
+</section>
+
+<!-- PAGE 8 -->
+<section>
+<div class="card">
+<h1>🎉 You Said YES!</h1>
+<p>You made me the happiest person alive 💖</p>
+<button class="btn-love" onclick="next()">Next 💕</button>
+</div>
+</section>
+
+<!-- PAGE 9 -->
+<section>
+<div class="card">
+<h1>✍️ My Letter to You</h1>
+<div id="letter"></div>
+</div>
+</section>
+
+<script>
+/* Page navigation */
+let page=0;
+const sections=document.querySelectorAll("section");
+function next(){
+    sections[page].classList.remove("active");
+    page++;
+    sections[page].classList.add("active");
+}
+
+/* Hearts */
+for(let i=0;i<40;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"%";
+    h.style.animationDuration=3+Math.random()*5+"s";
+    document.querySelector(".hearts").appendChild(h);
+}
+
+/* Age */
+document.getElementById("age").innerText = 21; // change age here
+
+/* Countdown + Fireworks */
+setInterval(()=>{
+    let now=new Date();
+    let midnight=new Date();
+    midnight.setHours(24,0,0,0);
+    let d=midnight-now;
+    let h=Math.floor(d/3600000);
+    let m=Math.floor(d/60000)%60;
+    let s=Math.floor(d/1000)%60;
+    document.getElementById("countdown").innerHTML=`${h}h ${m}m ${s}s`;
+    if(d<=0){
+        confetti({particleCount:700,spread:360});
+    }
+},1000);
+
+/* Proposal */
+function yes(){
+    confetti({particleCount:500,spread:300});
+    next();
+}
+function no(){
+    alert("Wrong answer 😤 Try again ❤️");
+}
+
+/* Typing Letter */
+const text=`My Dearest Priya ❤️
+
+Happy Birthday to the love of my life.
+You are my happiness, my peace, and my forever.
+
+I promise to love you today,
+tomorrow, and always 💖`;
+let i=0;
+function type(){
+    if(i<text.length){
+        document.getElementById("letter").innerHTML+=text.charAt(i);
+        i++;
+        setTimeout(type,50);
+    }
+}
+sections[8].addEventListener("click",type,{once:true});
+</script>
+
+</body>
+</html>
